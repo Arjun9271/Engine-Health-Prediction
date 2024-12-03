@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engine Health Prediction</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Engine Health Prediction</h1>
+    <form id="sensor-form">
+        <label for="sensor2">Sensor2:</label>
+        <input type="text" id="sensor2" name="sensor2"><br><br>
+        <label for="sensor3">Sensor3:</label>
+        <input type="text" id="sensor3" name="sensor3"><br><br>
+        <label for="sensor4">Sensor4:</label>
+        <input type="text" id="sensor4" name="sensor4"><br><br>
+        <label for="sensor7">Sensor7:</label>
+        <input type="text" id="sensor7" name="sensor7"><br><br>
+        <label for="sensor8">Sensor8:</label>
+        <input type="text" id="sensor8" name="sensor8"><br><br>
+        <label for="sensor9">Sensor9:</label>
+        <input type="text" id="sensor9" name="sensor9"><br><br>
+        <label for="sensor11">Sensor11:</label>
+        <input type="text" id="sensor11" name="sensor11"><br><br>
+        <label for="sensor12">Sensor12:</label>
+        <input type="text" id="sensor12" name="sensor12"><br><br>
+        <label for="sensor13">Sensor13:</label>
+        <input type="text" id="sensor13" name="sensor13"><br><br>
+        <label for="sensor14">Sensor14:</label>
+        <input type="text" id="sensor14" name="sensor14"><br><br>
+        <label for="sensor15">Sensor15:</label>
+        <input type="text" id="sensor15" name="sensor15"><br><br>
+        <label for="sensor17">Sensor17:</label>
+        <input type="text" id="sensor17" name="sensor17"><br><br>
+        <label for="sensor20">Sensor20:</label>
+        <input type="text" id="sensor20" name="sensor20"><br><br>
+        <label for="sensor21">Sensor21:</label>
+        <input type="text" id="sensor21" name="sensor21"><br><br>
+        <button type="submit">Predict</button>
+    </form>
+
+    <h2 id="prediction-result"></h2>
+
+    <script>
+        $("#sensor-form").on("submit", function(event) {
+            event.preventDefault();
+
+            let sensorData = {
+                sensor2: parseFloat($("#sensor2").val()),
+                sensor3: parseFloat($("#sensor3").val()),
+                sensor4: parseFloat($("#sensor4").val()),
+                sensor7: parseFloat($("#sensor7").val()),
+                sensor8: parseFloat($("#sensor8").val()),
+                sensor9: parseFloat($("#sensor9").val()),
+                sensor11: parseFloat($("#sensor11").val()),
+                sensor12: parseFloat($("#sensor12").val()),
+                sensor13: parseFloat($("#sensor13").val()),
+                sensor14: parseFloat($("#sensor14").val()),
+                sensor15: parseFloat($("#sensor15").val()),
+                sensor17: parseFloat($("#sensor17").val()),
+                sensor20: parseFloat($("#sensor20").val()),
+                sensor21: parseFloat($("#sensor21").val())
+            };
+
+            $.ajax({
+                url: "/predict",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(sensorData),
+                success: function(response) {
+                    $("#prediction-result").text("Engine Health: " + response.engine_health);
+                },
+                error: function(xhr, status, error) {
+                    $("#prediction-result").text("Error: " + error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
