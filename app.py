@@ -62,7 +62,8 @@ class SensorData(BaseModel):
     sensor20: float
     sensor21: float
 
-# Load machine learning model and scaler
+# Load machine learning model and scaling that best fits
+
 model_rf = load('best_rf_model.joblib')
 scaler = load('best_rf_scaler.joblib')
 
